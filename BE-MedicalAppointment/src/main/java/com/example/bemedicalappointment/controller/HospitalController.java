@@ -77,6 +77,7 @@ public class HospitalController {
         hospital.setAddress(hospitalResq.getAddress());
         hospital.setDiscription(hospitalResq.getDiscription());
         hospital.setUrlImg(hospitalResq.getUrlImg());
+        hospital.setStatus(hospitalResq.getStatus());
         Set<Long> longTypes =hospitalResq.getTypes();
         Set<Type> types = new HashSet<>();
         iHospitalService.removeType(id);
@@ -88,8 +89,16 @@ public class HospitalController {
                 }
         );
         hospital.setTypes(types);
-        hospital.setTypes(types);
         iHospitalService.save(hospital);
         return new ResponseEntity<>(new ResponseMessage("Update thành công"), HttpStatus.OK);
     }
+    @GetMapping("getHospital")
+    public ResponseEntity<?> getHospital(@RequestParam("id") long id){
+        if(!iHospitalService.existsById(id)){
+            return new ResponseEntity<>(new ResponseMessage("Không tồn tại"), HttpStatus.OK);
+        }
+        Hospital hospital= iHospitalService.getHospitalById(id).get();
+        return new ResponseEntity<>(hospital, HttpStatus.OK);
+    }
+
 }

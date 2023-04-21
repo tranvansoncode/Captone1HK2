@@ -1,0 +1,61 @@
+<div style="width: 100%; overflow-x: visible" >
+  <a routerLink="/hospital/create">Create hospital</a>
+  <input type="text" [(ngModel)]="searchText" placeholder="Tìm kiếm"/>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td>#</td>
+        <td (click)="sort('hospital.name')">
+          <span>Tên bệnh viện</span> &nbsp;
+          <i class="fa-solid fa-sort"></i>
+        </td>
+        <td (click)="sort('hospital.email')">
+          <span>Email</span> &nbsp;
+          <i class="fa-solid fa-sort"></i>
+        </td>
+        <td (click)="sort('hospital.phone')">
+          <span>Số điện thoại</span> &nbsp;
+          <i class="fa-solid fa-sort"></i>
+        </td>
+        <td (click)="sort('hospital.address')">
+          <span>Địa chỉ</span> &nbsp;
+          <i class="fa-solid fa-sort"></i>
+        </td>
+        <td (click)="sort('hospital.discription')">
+          <span>Mô tả</span> &nbsp;
+          <i class="fa-solid fa-sort"></i>
+        </td>
+        <td (click)="sort('hospital.status')">
+          <span>Trạng thái</span> &nbsp;
+          <i class="fa-solid fa-sort"></i>
+        </td>
+        <td (click)="sort('hospital.types')">
+          <span>Loại</span> &nbsp;
+          <i class="fa-solid fa-sort"></i>
+        </td>
+        <td>Ảnh</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let hospital of hospitals | filter: searchText | paginate: { itemsPerPage: itemsPerPage, currentPage: p }| orderBy:orderByField:orderByDirection; let i = index" style="">
+      <td>{{(itemsPerPage * (p-1))+i+1}}</td>
+      <td>{{hospital.name}}</td>
+      <td>{{hospital.email}}</td>
+      <td>{{hospital.phone}}</td>
+      <td>{{hospital.address}}</td>
+      <td>{{hospital.discription}}</td>
+      <td>
+        <div>{{hospital.status==1?'Hoạt động':'Không hoạt động'}}</div>
+      <td>
+        <ul>
+          <li *ngFor="let type of hospital.types; let i = index">{{hospital.types[i].name}}</li>
+        </ul>
+      </td>
+      <td><a href="{{hospital.urlImg}}">{{hospital.urlImg}}</a></td>
+      <td><button [routerLink]="['/hospital/update/', hospital.id]">Chỉnh sửa</button></td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

@@ -1,0 +1,40 @@
+<div class="row col-6 mx-auto d-flex align-items-center" style="height: 100vh;">
+  <form class="card container shadow " [formGroup]="signUpForm">
+    <div class="text-center my-2">
+      <h2 class="text-black-50 mt-4">Đăng ký</h2>
+    </div>
+    <div class="m-2">
+      <span>Họ và tên</span>
+      <input type="text" class="form-control" placeholder="Fullname" formControlName="name" required>
+    </div>
+    <div class="m-2">
+      <span>Tên tài khoản</span>
+      <input type="text" class="form-control" placeholder="Username" formControlName="username" required>
+    </div>
+    <div class="m-2">
+      <span>Email</span>
+      <div class="position-relative d-flex align-items-center">
+        <input type="text" class="form-control" placeholder="Email" formControlName="email" required>
+        <a class="position-absolute" style="right: 0; margin-right: 20px; cursor: pointer" (click)="sendOtp()"  >Gửi Otp</a>
+      </div>
+    </div>
+    <div class="m-2">
+      <span>Mật khẩu</span>
+      <div class="position-relative d-flex align-items-center">
+        <input type="{{showStatus}}" class="form-control" placeholder="Password" formControlName="password" required>
+        <a class="position-absolute" style="right: 0; margin-right: 20px; cursor: pointer" (click)="showPassword()" *ngIf="showStatus=='password'">Show</a>
+        <a class="position-absolute" style="right: 0; margin-right: 20px; cursor: pointer" (click)="showPassword()" *ngIf="showStatus=='text'">Hide</a>
+      </div>
+    </div>
+    <div class="m-2">
+      <span>Otp</span>
+      <input type="number" class="form-control" placeholder="Enter otp" formControlName="otp" required>
+    </div>
+    <div class="text-center m-2">
+      <button class="btn btn-primary form-control mb-4" (click)="ngSubmit()">Đăng ký</button>
+    </div>
+    <div class="text-center m-2">
+      <a href="#" routerLink="/login"><i><u>Đã có tài khoản</u></i></a>
+    </div>
+  </form>
+</div>
